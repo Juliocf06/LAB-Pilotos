@@ -16,12 +16,20 @@ def test_pilotos_menor_tiempo_medio_vueltas_top(carreras:list[Carrera], n)->list
     print("\n 3. Test pilotos_menor_tiempo_medio_vueltas_top.")
     print(f"Los {n} pilotos con menor tiempo medio son: ", pilotos_menor_tiempo_medio_vueltas_top(carreras, n))
 
+def test_ratio_tiempo_boxes_total(carreras:list[Carrera])->list[tuple[str,date, float]]:
+    print("\n 4. Test ratio_tiempo_boxes_total.")
+    print("Los ratios del tiempo en boxes son: ", ratio_tiempo_boxes_total(carreras))
 
+def test_puntos_piloto_anyos(carreras:list[Carrera])->dict[str, list[int]]:
+    print("\n 5. Test puntos_piloto_anyos.")
+    print(puntos_piloto_anyos(carreras))
 
 if __name__ == "__main__":
     fichero = lee_carreras('data/f1.csv')
     test_lee_carreras(fichero)
     test_media_tiempo_boxes(fichero, "Barcelona", date(2023,5,7))
     test_pilotos_menor_tiempo_medio_vueltas_top(fichero, 4)
+    test_ratio_tiempo_boxes_total(fichero)
+    test_puntos_piloto_anyos(fichero)
     
 

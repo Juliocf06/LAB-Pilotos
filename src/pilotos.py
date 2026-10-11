@@ -81,11 +81,66 @@ def pilotos_menor_tiempo_medio_vueltas_top(carreras:list[Carrera], n)->list[tupl
         res.append((r[0], r[1]))
     return res[:n]
 
-            
+def ratio_tiempo_boxes_total(carreras:list[Carrera])->list[tuple[str,date, float]]:
+    tiempos_por_dias = {}
+    lista = []
+    for carrera in carreras:
+        if carrera.fecha_carrera not in tiempos_por_dias:
+            tiempos_por_dias[carrera.fecha_carrera] = 0
+        tiempos_por_dias[carrera.fecha_carrera] += carrera.tiempo_boxes
+    for carrera in carreras:
+        tupla = (carrera.nombre, str(carrera.fecha_carrera), round(carrera.tiempo_boxes/tiempos_por_dias[carrera.fecha_carrera], 3))
+        lista.append(tupla)
+    res = sorted(lista, key=lambda x:x[2])
+    return res
+
+def puntos_piloto_anyos(carreras:list[Carrera])->dict[str, list[int]]:
+    res = {}
+    res2 = {}
+    for carrera in carreras:
+        tupla = (carrera.nombre, carrera.fecha_carrera.year)
+        if tupla not in res:
+            res[tupla] = 0
+        res[tupla] += calcular_puntos(carrera)
+    for (nombre, anyo), suma in res.items():
+        if nombre not in res2:
+            res2[nombre] = []
+        res2[nombre].append(suma)
+    return res2
+
+
+def calcular_puntos(carrera:Carrera):
+    if carrera.posicion_final == 1:
+        return 50
+    elif carrera.posicion_final == 2:
+        return 25
+    elif carrera.posicion_final == 3:
+        return 10
+    else:
+        return 0
+
+'''
+def mejor_escuderia_anyo(carreras:list[Carrera], anyo:int)->str:        Creo que la estructura de esta función puede
+    res = {}                                                            calcularse siguiendo la estructura de la anterior
+    res2 = {}                                                           Pero ahora sumamos 1 solo por quedar 1º y quien
+    for carrera in carreras:                                            + a lo largo de todo el tiempo es el mejor así que
+        tupla = (carrera.escuderia, carrera.fecha_carrera.year)         sería sumar las listas de los diccionarios y ahora
+        if tupla not in res:                                            en vez de pilotos tenemos escuderias.
+            res[tupla] = 0                                              Habrían formas más eficientes como no tener en cuenta
+        res[tupla] += calcular_victoria(carrera)                        la fecha pero creo que lo haré así cuando siga
+    for (escuderia, anyo), suma in res.items():
+        if escuderia not in res2:
+            res2[escuderia] = []
+        res2[escuderia].append(suma)
+    return res2
         
-    
+def calcular_victoria(carrera:Carrera):
+    if carrera.posicion_final == 1:
+        return 1
+    else:
+        return 0
 
-
+'''
 
 
 
