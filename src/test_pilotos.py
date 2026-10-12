@@ -24,6 +24,10 @@ def test_puntos_piloto_anyos(carreras:list[Carrera])->dict[str, list[int]]:
     print("\n 5. Test puntos_piloto_anyos.")
     print(puntos_piloto_anyos(carreras))
 
+def test_mejor_escuderia_anyo(carreras:list[Carrera], anyo:int)->str:
+    print("\n 6. Test mejor_escuderia_anyo.")
+    print(f"La mejor escudería en el año {anyo} ha sido", mejor_escuderia_anyo(carreras, anyo))
+
 if __name__ == "__main__":
     fichero = lee_carreras('data/f1.csv')
     test_lee_carreras(fichero)
@@ -31,5 +35,6 @@ if __name__ == "__main__":
     test_pilotos_menor_tiempo_medio_vueltas_top(fichero, 4)
     test_ratio_tiempo_boxes_total(fichero)
     test_puntos_piloto_anyos(fichero)
+    test_mejor_escuderia_anyo(fichero, date(2022, 1, 1).year)
     
 

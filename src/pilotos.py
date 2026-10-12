@@ -119,20 +119,18 @@ def calcular_puntos(carrera:Carrera):
     else:
         return 0
 
-'''
-def mejor_escuderia_anyo(carreras:list[Carrera], anyo:int)->str:        Creo que la estructura de esta función puede
-    res = {}                                                            calcularse siguiendo la estructura de la anterior
-    res2 = {}                                                           Pero ahora sumamos 1 solo por quedar 1º y quien
-    for carrera in carreras:                                            + a lo largo de todo el tiempo es el mejor así que
-        tupla = (carrera.escuderia, carrera.fecha_carrera.year)         sería sumar las listas de los diccionarios y ahora
-        if tupla not in res:                                            en vez de pilotos tenemos escuderias.
-            res[tupla] = 0                                              Habrían formas más eficientes como no tener en cuenta
-        res[tupla] += calcular_victoria(carrera)                        la fecha pero creo que lo haré así cuando siga
-    for (escuderia, anyo), suma in res.items():
-        if escuderia not in res2:
-            res2[escuderia] = []
-        res2[escuderia].append(suma)
-    return res2
+
+def mejor_escuderia_anyo(carreras:list[Carrera], anyo:int)->str:
+    res = {}                                                    
+    res2 = {}                                                   
+    for carrera in carreras:                                    
+        if carrera.fecha_carrera.year==anyo:
+            if carrera.escuderia not in res:
+                res[carrera.escuderia] = 0
+            res[carrera.escuderia] += calcular_victoria(carrera)
+    mejor_escuderia = max(res.items(), key=lambda n:n[1])
+    print(res)
+    return mejor_escuderia[0]
         
 def calcular_victoria(carrera:Carrera):
     if carrera.posicion_final == 1:
@@ -140,7 +138,6 @@ def calcular_victoria(carrera:Carrera):
     else:
         return 0
 
-'''
 
 
 
