@@ -122,14 +122,12 @@ def calcular_puntos(carrera:Carrera):
 
 def mejor_escuderia_anyo(carreras:list[Carrera], anyo:int)->str:
     res = {}                                                    
-    res2 = {}                                                   
     for carrera in carreras:                                    
         if carrera.fecha_carrera.year==anyo:
             if carrera.escuderia not in res:
                 res[carrera.escuderia] = 0
             res[carrera.escuderia] += calcular_victoria(carrera)
     mejor_escuderia = max(res.items(), key=lambda n:n[1])
-    print(res)
     return mejor_escuderia[0]
         
 def calcular_victoria(carrera:Carrera):
